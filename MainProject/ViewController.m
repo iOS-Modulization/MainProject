@@ -7,8 +7,11 @@
 //
 
 #import "ViewController.h"
+#import "AViewController.h"
 
 @interface ViewController ()
+
+@property (nonatomic, strong) UIButton *AButton;
 
 @end
 
@@ -16,14 +19,27 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    [self configUI];
+    
+    [self.AButton addTarget:self action:@selector(showAView) forControlEvents:UIControlEventTouchUpInside];
 }
 
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)configUI {
+    self.AButton = [[UIButton alloc] initWithFrame:CGRectZero];
+    self.AButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.AButton setTitle:@"Push A View" forState:UIControlStateNormal];
+    [self.AButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.AButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+    [self.view addSubview:self.AButton];
+    [[self.AButton.widthAnchor constraintEqualToConstant:120] setActive:YES];
+    [[self.AButton.heightAnchor constraintEqualToConstant:40] setActive:YES];
+    [[self.AButton.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor] setActive:YES];
+    [[self.AButton.centerYAnchor constraintEqualToAnchor:self.view.centerYAnchor] setActive:YES];
 }
 
+- (void)showAView {
+    AViewController *avc = [[AViewController alloc] init];
+    [self showViewController:avc sender:nil];
+}
 
 @end
