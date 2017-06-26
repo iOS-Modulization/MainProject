@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "AViewController.h"
+#import <A_Category/CTMediator+A.h>
 
 @interface ViewController ()
 
@@ -38,8 +38,8 @@
 }
 
 - (void)showAView {
-    AViewController *avc = [[AViewController alloc] init];
-    [self showViewController:avc sender:nil];
+    UIViewController *viewController = [[CTMediator sharedInstance] A_aViewController];
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 @end
