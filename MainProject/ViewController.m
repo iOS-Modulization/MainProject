@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import <A_Category/CTMediator+A.h>
+#import <C_Category/CTMediator+C.h>
 
 @interface ViewController ()
 
@@ -22,6 +23,8 @@
     [self configUI];
     
     [self.AButton addTarget:self action:@selector(showAView) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self addSubVC];
 }
 
 - (void)configUI {
@@ -40,6 +43,18 @@
 - (void)showAView {
     UIViewController *viewController = [[CTMediator sharedInstance] A_aViewController];
     [self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (void)addSubVC {
+    UIViewController *viewController = [[CTMediator sharedInstance] C_viewController];
+    [self addChildViewController:viewController];
+    [self.view addSubview:viewController.view];
+    viewController.view.translatesAutoresizingMaskIntoConstraints = NO;
+    [[viewController.view.widthAnchor constraintEqualToConstant:200] setActive:YES];
+    [[viewController.view.heightAnchor constraintEqualToConstant:200] setActive:YES];
+    [[viewController.view.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor] setActive:YES];
+    [[viewController.view.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor] setActive:YES];
+    [viewController didMoveToParentViewController:self];
 }
 
 @end
